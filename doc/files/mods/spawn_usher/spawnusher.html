@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Luadocs for mods/spawn_usher/spawnusher.lua</title>
+    <link rel="stylesheet" href="../../../luadoc.css" type="text/css" />
+    <!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+<div id="container">
+
+<div id="product">
+    <div id="product_logo"></div>
+    <div id="product_name"><big><b></b></big></div>
+    <div id="product_description"></div>
+</div> <!-- id="product" -->
+
+<div id="main">
+
+<div id="navigation">
+
+
+<h1>LuaDoc</h1>
+<ul>
+	
+	<li><a href="../../../index.html">Index</a></li>
+	
+</ul>
+
+
+<!-- Module list -->
+
+
+
+<!-- File list -->
+
+<h1>Files</h1>
+<ul>
+
+	<li>
+		<a href="../../../files/mods/spawn_usher/init.html">mods/spawn_usher/init.lua</a>
+	</li>
+
+	<li><strong>mods/spawn_usher/spawnusher.lua</strong></li>
+	
+</ul>
+
+
+
+
+
+
+</div> <!-- id="navigation" -->
+
+<div id="content">
+
+<h1>File <code>mods/spawn_usher/spawnusher.lua</code></h1>
+
+
+
+
+
+
+
+<h2>Functions</h2>
+<table class="function_list">
+
+    <tr>
+    <td class="name" nowrap><a href="#spawnusher.activate">spawnusher.activate</a>&nbsp;(require_air_bubble_size, retry_time)</td>
+    <td class="summary">Activates the spawn usher system.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#spawnusher.is_air_bubble">spawnusher.is_air_bubble</a>&nbsp;(start_pos)</td>
+    <td class="summary">Tests if the given position is an air bubble big enough.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#spawnusher.move_later">spawnusher.move_later</a>&nbsp;(player, current_pos)</td>
+    <td class="summary">Schedules the player to be moved later.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#spawnusher.move_player">spawnusher.move_player</a>&nbsp;(player)</td>
+    <td class="summary">Moves the player to a safe location.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#spawnusher.move_players">spawnusher.move_players</a>&nbsp;()</td>
+    <td class="summary">Move all players that could not be placed so far.</td>
+    </tr>
+
+</table>
+
+
+
+
+
+
+<br/>
+<br/>
+
+
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="spawnusher.activate"></a><strong>spawnusher.activate</strong>&nbsp;(require_air_bubble_size, retry_time)</dt>
+<dd>
+Activates the spawn usher system. 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  require_air_bubble_size: Optional. The size/height of the bubble of air that is required for the player to spawn. Defaults to 2.
+	</li>
+	
+	<li>
+	  retry_time: Optional. This is the time that passes between tries to place to the player.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="spawnusher.is_air_bubble"></a><strong>spawnusher.is_air_bubble</strong>&nbsp;(start_pos)</dt>
+<dd>
+Tests if the given position is an air bubble big enough. 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  start_pos: The position at which to check.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+true if at the given position is an air bubble big enough.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="spawnusher.move_later"></a><strong>spawnusher.move_later</strong>&nbsp;(player, current_pos)</dt>
+<dd>
+Schedules the player to be moved later. Also moves the player to the given position. 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  player: The player object.
+	</li>
+	
+	<li>
+	  current_pos: The current position to which the player will be moved.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="spawnusher.move_player"></a><strong>spawnusher.move_player</strong>&nbsp;(player)</dt>
+<dd>
+Moves the player to a safe location. 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  player: The player object.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="spawnusher.move_players"></a><strong>spawnusher.move_players</strong>&nbsp;()</dt>
+<dd>
+Move all players that could not be placed so far.
+
+
+
+
+
+
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+    <p><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" height="31" width="88" /></a></p>
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->
+</body>
+</html>

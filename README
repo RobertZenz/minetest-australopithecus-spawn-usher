@@ -1,0 +1,11 @@
+minetest-australopithecus-spawn-usher
+=====================================
+
+A simple system that corrects the spawn of players without knowing anything
+about the mapgen that is used.
+
+To activate the system, add it to your `depends.txt` and call this in your
+`init.lua.`
+
+    spawnusher.activate()
+
