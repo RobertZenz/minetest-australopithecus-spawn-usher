@@ -45,12 +45,15 @@ spawnusher = {
 
 --- Activates the spawn usher system.
 --
--- @param require_air_bubble_size Optional. The size/height of the bubble of air
---                                that is required for the player to spawn.
---                                Defaults to 2.
+-- @param required_air_bubble_size Optional. The size/height of the bubble of air
+--                                 that is required for the player to spawn.
+--                                 Defaults to 2.
 -- @param retry_time Optional. This is the time that passes between tries to
 --                   place to the player.
-function spawnusher.activate(require_air_bubble_size, retry_time)
+function spawnusher.activate(required_air_bubble_size, retry_time)
+	spawnusher.required_bubble_size = required_bubble_size or 2
+	spawnusher.retry_time = retry_time or 0.5
+	
 	minetest.register_on_newplayer(spawnusher.move_player)
 	minetest.register_on_respawnplayer(spawnusher.move_player)
 end
