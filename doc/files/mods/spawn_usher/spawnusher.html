@@ -68,7 +68,7 @@
 <table class="function_list">
 
     <tr>
-    <td class="name" nowrap><a href="#spawnusher.activate">spawnusher.activate</a>&nbsp;(required_air_bubble_size, retry_time)</td>
+    <td class="name" nowrap><a href="#spawnusher.activate">spawnusher.activate</a>&nbsp;(random_placement_radius, required_air_bubble_size, retry_time)</td>
     <td class="summary">Activates the spawn usher system.</td>
     </tr>
 
@@ -92,6 +92,16 @@
     <td class="summary">Move all players that could not be placed so far.</td>
     </tr>
 
+    <tr>
+    <td class="name" nowrap><a href="#spawnusher.move_random">spawnusher.move_random</a>&nbsp;(player)</td>
+    <td class="summary">Moves the player randomly on the x and z plane.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#spawnusher.on_spawn_player">spawnusher.on_spawn_player</a>&nbsp;(player)</td>
+    <td class="summary">Callback for if a player spawns.</td>
+    </tr>
+
 </table>
 
 
@@ -110,13 +120,17 @@
 
 
 
-<dt><a name="spawnusher.activate"></a><strong>spawnusher.activate</strong>&nbsp;(required_air_bubble_size, retry_time)</dt>
+<dt><a name="spawnusher.activate"></a><strong>spawnusher.activate</strong>&nbsp;(random_placement_radius, required_air_bubble_size, retry_time)</dt>
 <dd>
 Activates the spawn usher system. 
 
 
 <h3>Parameters</h3>
 <ul>
+	
+	<li>
+	  random_placement_radius: Optional. The player will be respawned in the given radius around the spawn point.
+	</li>
 	
 	<li>
 	  required_air_bubble_size: Optional. The size/height of the bubble of air that is required for the player to spawn. Defaults to 2.
@@ -234,6 +248,61 @@ Move all players that could not be placed so far.
 
 
 
+
+
+
+</dd>
+
+
+
+
+<dt><a name="spawnusher.move_random"></a><strong>spawnusher.move_random</strong>&nbsp;(player)</dt>
+<dd>
+Moves the player randomly on the x and z plane. 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  player: The Player object to move.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="spawnusher.on_spawn_player"></a><strong>spawnusher.on_spawn_player</strong>&nbsp;(player)</dt>
+<dd>
+Callback for if a player spawns. 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  player: The Player that spawned.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+true, to disable default placement.
 
 
 

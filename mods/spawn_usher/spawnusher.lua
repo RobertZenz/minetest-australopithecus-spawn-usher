@@ -37,6 +37,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -- The only function that should be called from clients is activate.
 spawnusher = {
 	players = List:new(),
+	random = nil,
+	random_placement_radius = 40,
 	required_bubble_size = 2,
 	retry_time = 0.5,
 	scheduled = false
@@ -45,17 +47,25 @@ spawnusher = {
 
 --- Activates the spawn usher system.
 --
--- @param required_air_bubble_size Optional. The size/height of the bubble of air
---                                 that is required for the player to spawn.
+-- @param random_placement_radius Optional. The player will be respawned in
+--                                the given radius around the spawn point.
+-- @param required_air_bubble_size Optional. The size/height of the bubble of
+--                                 air that is required for the player to spawn.
 --                                 Defaults to 2.
 -- @param retry_time Optional. This is the time that passes between tries to
 --                   place to the player.
-function spawnusher.activate(required_air_bubble_size, retry_time)
+function spawnusher.activate(random_placement_radius, required_air_bubble_size, retry_time)
+	spawnusher.random_placement_radius = random_placement_radius or 40
 	spawnusher.required_bubble_size = required_bubble_size or 2
 	spawnusher.retry_time = retry_time or 0.5
 	
-	minetest.register_on_newplayer(spawnusher.move_player)
-	minetest.register_on_respawnplayer(spawnusher.move_player)
+	-- Initialize the PcgRandom with the current time. Given that placement
+	-- of the player is not critical or needs to be reproducable in any way,
+	-- it really does not matter here.
+	spawnusher.random = PcgRandom(os.time())
+	
+	minetest.register_on_newplayer(spawnusher.on_spawn_player)
+	minetest.register_on_respawnplayer(spawnusher.on_spawn_player)
 end
 
 --- Tests if the given position is an air bubble big enough.
@@ -105,6 +115,21 @@ function spawnusher.move_later(player, current_pos)
 		
 		minetest.after(spawnusher.retry_time, spawnusher.move_players)
 	end
+end
+
+--- Moves the player randomly on the x and z plane.
+--
+-- @param player The Player object to move.
+function spawnusher.move_random(player)
+	local move_x = spawnusher.random:next(-spawnusher.random_placement_radius, spawnusher.random_placement_radius)
+	local move_z = spawnusher.random:next(-spawnusher.random_placement_radius, spawnusher.random_placement_radius)
+	
+	local pos = player:getpos()
+	
+	pos.x = pos.x + move_x
+	pos.z = pos.z + move_z
+	
+	player:setpos(pos)
 end
 
 --- Moves the player to a safe location.
@@ -188,5 +213,31 @@ function spawnusher.move_players()
 	else
 		spawnusher.scheduled = false
 	end
+end
+
+--- Callback for if a player spawns.
+--
+-- @param player The Player that spawned.
+-- @return true, to disable default placement.
+function spawnusher.on_spawn_player(player)
+	-- Move the player to the set/default spawn point.
+	local spawn_pos = minetest.setting_get_pos("static_spawnpoint")
+	if spawn_pos == nil then
+		spawn_pos = {
+			x = 0,
+			y = 0,
+			z = 0
+		}
+	end
+	
+	player:setpos(spawn_pos)
+	
+	-- Move the player randomly afterwards.
+	spawnusher.move_random(player)
+	
+	-- Now find a nice spawn place for the player.
+	spawnusher.move_player(player)
+	
+	return true
 end
 
