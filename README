@@ -4,8 +4,34 @@ minetest-australopithecus-spawn-usher
 A simple system that corrects the spawn of players without knowing anything
 about the mapgen that is used.
 
+
+Usage
+=====
+
 To activate the system, add it to your `depends.txt` and call this in your
-`init.lua.`
+`init.lua.`:
 
     spawnusher.activate()
+
+Optionally, you can set parameters when activating it, it accepts three
+parameters:
+
+ 1. `random_placement_radius`, the player will be randomly placed around
+    the spawn point inside the given radius.
+    Defaults to 40.
+ 2. `required_bubble_size`, the size of the air bubble that is required for
+    the player to be placed there. Note this is only the vertical size.
+    Defaults to 2.
+ 3. `retry_time`, if the player can't be placed because a block is not loaded
+    yet, this is the amount of time that is elapsed until a retry.
+    Defaults to 0.5 seconds.
+
+
+Caveats
+=======
+
+There is a good chance that the player is placed inside a cave if
+the `required_bubble_size` is small, like 2. If you want to prevent that, just
+pick a `required_bubble_size` that is large enough to avoid caves, 10 should
+work for the most part, for example.
 
