@@ -185,7 +185,18 @@ function spawnusher.move_player(player)
 				-- The node beneath is neither air nor ignore and there is no
 				-- air bubble big enough, lets go upwards and see if that
 				-- helps.
-				pos.y = pos.y + 2
+				while mathutil.in_range(pos.y, -31000, 31000) do
+					pos.y = pos.y + 1
+					
+					local upward_node = minetest.get_node(pos).name
+					
+					if upward_node == "ignore" then
+						spawnusher.move_later(player, pos)
+						return
+					elseif upward_node ~= "air" then
+						break
+					end
+				end
 			end
 		elseif current == "ignore" then
 			-- The current node is ignore, which means we need to retry later.
