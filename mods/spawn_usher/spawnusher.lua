@@ -49,12 +49,12 @@ spawnusher = {
 --
 -- @param random_placement_radius Optional. The player will be respawned in
 --                                the given radius around the spawn point.
--- @param required_air_bubble_size Optional. The size/height of the bubble of
---                                 air that is required for the player to spawn.
---                                 Defaults to 2.
+-- @param required_bubble_size Optional. The size/height of the bubble of
+--                             air that is required for the player to spawn.
+--                             Defaults to 2.
 -- @param retry_time Optional. This is the time that passes between tries to
 --                   place to the player.
-function spawnusher.activate(random_placement_radius, required_air_bubble_size, retry_time)
+function spawnusher.activate(random_placement_radius, required_bubble_size, retry_time)
 	spawnusher.random_placement_radius = random_placement_radius or 40
 	spawnusher.required_bubble_size = required_bubble_size or 2
 	spawnusher.retry_time = retry_time or 0.5
