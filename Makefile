@@ -7,5 +7,5 @@ clean:
 
 .PHONY: doc
 doc:
-	luadoc -d $(doc) mods/spawn_usher
+	ldoc --dir=$(doc) mods/spawn_usher
 
