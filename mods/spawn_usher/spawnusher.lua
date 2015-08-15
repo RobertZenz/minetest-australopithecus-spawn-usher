@@ -36,6 +36,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --
 -- The only function that should be called from clients is activate.
 spawnusher = {
+	after_spawn_callbacks = List:new(),
 	physics_override = {
 		speed = 0,
 		jump = 0,
@@ -174,6 +175,9 @@ function spawnusher.move_player(player)
 				-- Remove the saved one.
 				spawnusher.player_physics[player:get_player_name()] = nil
 				
+				-- Invoke the callbacks.
+				spawnusher.after_spawn_callbacks:invoke(player)
+				
 				return
 			else
 				-- The node beneath is neither air nor ignore and there is no
@@ -249,5 +253,13 @@ function spawnusher.on_spawn_player(player)
 	spawnusher.move_player(player)
 	
 	return true
+end
+
+--- Allows to register callbacks after a player has been spawned by spawn usher.
+--
+-- @param callback The callback to invoke, a function that accepts the player
+--                 object as single parameter.
+function spawnusher.register_after_spawn_callback(callback)
+	spawnusher.after_spawn_callbacks:add(callback)
 end
 

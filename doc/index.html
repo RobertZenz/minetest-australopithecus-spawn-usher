@@ -84,6 +84,10 @@
 	<td class="name" nowrap><a href="#on_spawn_player">on_spawn_player (player)</a></td>
 	<td class="summary">Callback for if a player spawns.</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#register_after_spawn_callback">register_after_spawn_callback (callback)</a></td>
+	<td class="summary">Allows to register callbacks after a player has been spawned by spawn usher.</td>
+	</tr>
 </table>
 
 <br/>
@@ -246,6 +250,27 @@
 
         true, to disable default placement.
     </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "register_after_spawn_callback"></a>
+    <strong>register_after_spawn_callback (callback)</strong>
+    </dt>
+    <dd>
+    Allows to register callbacks after a player has been spawned by spawn usher.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">callback</span>
+         The callback to invoke, a function that accepts the player
+                 object as single parameter.
+        </li>
+    </ul>
+
 
 
 
