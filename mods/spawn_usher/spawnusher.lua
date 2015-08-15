@@ -171,6 +171,8 @@ function spawnusher.move_player(player)
 				
 				-- Reset the physics override.
 				player:set_physics_override(spawnusher.player_physics[player:get_player_name()])
+				-- Remove the saved one.
+				spawnusher.player_physics[player:get_player_name()] = nil
 				
 				return
 			else
