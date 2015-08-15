@@ -36,6 +36,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --
 -- The only function that should be called from clients is activate.
 spawnusher = {
+	physics_override = {
+		speed = 0,
+		jump = 0,
+		gravity = 0,
+		sneak = false,
+		sneak_glitch = false
+	},
+	player_physics = {},
 	players = List:new(),
 	random = nil,
 	random_placement_radius = 40,
@@ -100,16 +108,6 @@ function spawnusher.move_later(player, current_pos)
 	
 	spawnusher.players:add(player)
 	
-	-- Override the physics of the player to make sure that the player does
-	-- not fall while we wait.
-	player:set_physics_override({
-		speed = 0,
-		jump = 0,
-		gravity = 0,
-		sneak = false,
-		sneak_glitch = false
-	})
-	
 	if not spawnusher.scheduled then
 		spawnusher.scheduled = true
 		
@@ -172,13 +170,7 @@ function spawnusher.move_player(player)
 				player:setpos(pos)
 				
 				-- Reset the physics override.
-				player:set_physics_override({
-					speed = 1,
-					jump = 1,
-					gravity = 1,
-					sneak = true,
-					sneak_glitch = true
-				})
+				player:set_physics_override(spawnusher.player_physics[player:get_player_name()])
 				
 				return
 			else
@@ -231,6 +223,11 @@ end
 -- @param player The Player that spawned.
 -- @return true, to disable default placement.
 function spawnusher.on_spawn_player(player)
+	-- Override the physics of the player to make sure that the player does
+	-- not fall while we wait and also does not move around.
+	spawnusher.player_physics[player:get_player_name()] = player:get_physics_override()
+	player:set_physics_override(spawnusher.physics_override)
+	
 	-- Move the player to the set/default spawn point.
 	local spawn_pos = minetest.setting_get_pos("static_spawnpoint")
 	if spawn_pos == nil then
