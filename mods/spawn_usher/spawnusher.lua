@@ -50,7 +50,8 @@ spawnusher = {
 	random_placement_radius = 40,
 	required_bubble_size = 2,
 	retry_time = 0.5,
-	scheduled = false
+	scheduled = false,
+	spawnpoint_providers = List:new()
 }
 
 
@@ -244,10 +245,21 @@ function spawnusher.on_spawn_player(player)
 		}
 	end
 	
-	player:setpos(spawn_pos)
-	
 	-- Move the player randomly afterwards.
 	spawnusher.move_random(player)
+	
+	player:setpos(spawn_pos)
+	
+	-- Run the position through the providers.
+	spawnusher.spawnpoint_providers:foreach(function(provider, index)
+		local provided_pos = provider(player, spawn_pos)
+		
+		if provided_pos ~= nil then
+			spawn_pos = provided_pos
+		end
+	end)
+	
+	player:setpos(spawn_pos)
 	
 	-- Now find a nice spawn place for the player.
 	spawnusher.move_player(player)
@@ -261,5 +273,17 @@ end
 --                 object as single parameter.
 function spawnusher.register_after_spawn_callback(callback)
 	spawnusher.after_spawn_callbacks:add(callback)
+end
+
+--- Allows to register providers that are called after the final position of
+-- the player has been determined. The provider can return a different position,
+-- or nil if it is happy with the given position.
+--
+-- @param provider The provider. A function that accepts two parameters,
+--                 the Player object and the spawn position that the system
+--                 calculated. It can return a new position, a table with
+--                 x y z values, or nil if the position should not be changed.
+function spawnusher.register_spawnpoint_provider(provider)
+	spawnusher.spawnpoint_providers:add(provider)
 end
 

@@ -88,6 +88,11 @@
 	<td class="name" nowrap><a href="#register_after_spawn_callback">register_after_spawn_callback (callback)</a></td>
 	<td class="summary">Allows to register callbacks after a player has been spawned by spawn usher.</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#register_spawnpoint_provider">register_spawnpoint_provider (provider)</a></td>
+	<td class="summary">Allows to register providers that are called after the final position of
+ the player has been determined.</td>
+	</tr>
 </table>
 
 <br/>
@@ -268,6 +273,32 @@
         <li><span class="parameter">callback</span>
          The callback to invoke, a function that accepts the player
                  object as single parameter.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "register_spawnpoint_provider"></a>
+    <strong>register_spawnpoint_provider (provider)</strong>
+    </dt>
+    <dd>
+    Allows to register providers that are called after the final position of
+ the player has been determined.  The provider can return a different position,
+ or nil if it is happy with the given position.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">provider</span>
+         The provider. A function that accepts two parameters,
+                 the Player object and the spawn position that the system
+                 calculated. It can return a new position, a table with
+                 x y z values, or nil if the position should not be changed.
         </li>
     </ul>
 
