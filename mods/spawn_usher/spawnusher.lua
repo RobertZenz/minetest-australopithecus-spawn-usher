@@ -177,7 +177,7 @@ function spawnusher.move_player(player)
 				spawnusher.player_physics[player:get_player_name()] = nil
 				
 				-- Invoke the callbacks.
-				spawnusher.after_spawn_callbacks:invoke(player)
+				spawnusher.after_spawn_callbacks:invoke(player, pos)
 				
 				return
 			else
@@ -270,7 +270,7 @@ end
 --- Allows to register callbacks after a player has been spawned by spawn usher.
 --
 -- @param callback The callback to invoke, a function that accepts the player
---                 object as single parameter.
+--                 object as first parameter and the spawn point as second.
 function spawnusher.register_after_spawn_callback(callback)
 	spawnusher.after_spawn_callbacks:add(callback)
 end
