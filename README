@@ -38,15 +38,19 @@ Providers
 
 You can register providers which allow to customize the spawn point of
 the players. The provider is a callback that is able to provide a different
-spawn point. The signature is:
+spawn point. As second return value it can return a boolean determining if
+the system should look for an air bubble above or below the given location.
+The signature is:
 
     function(
         player,    -- The Player object of the player that is going to respawn.
         spawn_pos) -- The current spawn position of the player.
     
     returns
-        spawn_pos  -- The position at which the player should ge respawned.
+        spawn_pos, -- The position at which the player should ge respawned.
                    -- nil to use the current one.
+        exact_spot -- true if the given position is the exact position to be
+                   -- used. nil to keep the current value.
 
 And a usage example:
 
@@ -57,8 +61,18 @@ And a usage example:
                 x = 0,
                 y = 125,
                 z = 50
-            }
+            },
+            true
         end
+    end)
+    
+    -- We want to move all players further out.
+    spawnusher.register_spawnpoint_provider(function(player, spawn_pos)
+        return {
+            x = spawn_pos.x + 150,
+            y = spawn_pos.y,
+            z = spawn_pos.z + 150
+        }
     end)
 
 

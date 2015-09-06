@@ -250,19 +250,26 @@ function spawnusher.on_spawn_player(player)
 	
 	player:setpos(spawn_pos)
 	
+	local exact_pos = false
+	
 	-- Run the position through the providers.
 	spawnusher.spawnpoint_providers:foreach(function(provider, index)
-		local provided_pos = provider(player, spawn_pos)
+		local provided_pos, provided_exact_pos = provider(player, spawn_pos)
 		
 		if provided_pos ~= nil then
 			spawn_pos = provided_pos
+		end
+		if provided_exact_pos ~= nil then
+			exact_pos = provided_exact_pos
 		end
 	end)
 	
 	player:setpos(spawn_pos)
 	
-	-- Now find a nice spawn place for the player.
-	spawnusher.move_player(player)
+	if not exact_pos then
+		-- Now find a nice spawn place for the player.
+		spawnusher.move_player(player)
+	end
 	
 	return true
 end
@@ -277,12 +284,15 @@ end
 
 --- Allows to register providers that are called after the final position of
 -- the player has been determined. The provider can return a different position,
--- or nil if it is happy with the given position.
+-- or nil if it is happy with the given position, and if it is is the exact
+-- position or not.
 --
 -- @param provider The provider. A function that accepts two parameters,
 --                 the Player object and the spawn position that the system
 --                 calculated. It can return a new position, a table with
 --                 x y z values, or nil if the position should not be changed.
+--                 The second return value can be true to make the system use
+--                 the provided position without looking for an air bubble.
 function spawnusher.register_spawnpoint_provider(provider)
 	spawnusher.spawnpoint_providers:add(provider)
 end

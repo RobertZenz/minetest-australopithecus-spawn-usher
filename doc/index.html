@@ -288,7 +288,8 @@
     <dd>
     Allows to register providers that are called after the final position of
  the player has been determined.  The provider can return a different position,
- or nil if it is happy with the given position.
+ or nil if it is happy with the given position, and if it is is the exact
+ position or not.
 
 
 
@@ -299,6 +300,8 @@
                  the Player object and the spawn position that the system
                  calculated. It can return a new position, a table with
                  x y z values, or nil if the position should not be changed.
+                 The second return value can be true to make the system use
+                 the provided position without looking for an air bubble.
         </li>
     </ul>
 
