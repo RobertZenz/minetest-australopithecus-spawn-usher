@@ -69,6 +69,13 @@ spawnusher = {
 	--- If the system is currently scheduled for execution.
 	scheduled = false,
 	
+	--- The spawnpoint that is configured.
+	spawnpoint = settings.get_pos("static_spawnpoint", {
+		x = 0,
+		y = 0,
+		z = 0
+	}),
+	
 	--- The registered spawnpoint providers.
 	spawnpoint_providers = List:new()
 }
@@ -246,21 +253,13 @@ function spawnusher.on_spawn_player(player)
 	player:set_physics_override(spawnusher.physics_override)
 	
 	-- Move the player to the set/default spawn point.
-	local spawn_pos = minetest.setting_get_pos("static_spawnpoint")
-	if spawn_pos == nil then
-		spawn_pos = {
-			x = 0,
-			y = 0,
-			z = 0
-		}
-	end
+	player:setpos(spawnusher.spawnpoint)
 	
 	-- Move the player randomly afterwards.
 	spawnusher.move_random(player)
 	
-	player:setpos(spawn_pos)
-	
 	local exact_pos = false
+	local spawn_pos = player:getpos()
 	
 	-- Run the position through the providers.
 	spawnusher.spawnpoint_providers:foreach(function(provider, index)
