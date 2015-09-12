@@ -16,6 +16,9 @@ Configuration
 
 The system can be configured by adding settings to the `minetest.conf`:
 
+    # If the system should be activated, defaults to true.
+    spawnusher_activate = true
+    
     # The radius around the spawnpoint in which the players will be randomly
     # placed, defaults to 40.
     spawnusher_placement_radius = 40.
