@@ -8,29 +8,29 @@ about the mapgen that is used.
 Usage
 =====
 
-To activate the system, add it to your `depends.txt` and call this in your
-`init.lua.`:
+The system activates itself, you just need to add the mod to the subgame.
 
-    spawnusher.activate()
+
+Configuration
+=============
+
+The system can be configured by adding settings to the `minetest.conf`:
+
+    # The radius around the spawnpoint in which the players will be randomly
+    # placed, defaults to 40.
+    spawnusher_placement_radius = 40.
     
-    -- With parameters.
-    spawnusher.activate(
-        40,   -- random_placement_radius
-        2,    -- required_bubble_size
-        0.5)  -- retry_time
-
-Optionally, you can set parameters when activating it, it accepts three
-parameters:
-
- 1. `random_placement_radius`, the player will be randomly placed around
-    the spawn point inside the given radius.
-    Defaults to 40.
- 2. `required_bubble_size`, the size of the air bubble that is required for
-    the player to be placed there. Note this is only the vertical size.
-    Defaults to 2.
- 3. `retry_time`, if the player can't be placed because a block is not loaded
-    yet, this is the amount of time that is elapsed until a retry.
-    Defaults to 0.5 seconds.
+    # The size of the air bubble that is required for the player to be placed.
+    # Note that this is only the vertical size, defaults to 2.
+    # If you want to avoid spawns in caves, this value needs to be increased
+    # to a sensible value.
+    spawnusher_bubble_size = 2
+    
+    # If the player can not be placed because the block is currently not loaded,
+    # this amount of time will be waited before it is retried to place
+    # place the player, defaults to 0.5.
+    # In seconds.
+    spawnusher_retry_time = 0.5
 
 
 Providers

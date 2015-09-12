@@ -36,7 +36,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --
 -- The only function that should be called from clients is activate.
 spawnusher = {
+	--- The list of callbacks that are invoked after the player has been placed.
 	after_spawn_callbacks = List:new(),
+	
+	--- The physics override that is set to make the player inmovable.
 	physics_override = {
 		speed = 0,
 		jump = 0,
@@ -44,38 +47,45 @@ spawnusher = {
 		sneak = false,
 		sneak_glitch = false
 	},
+	
+	--- The original physics of the payers.
 	player_physics = {},
+	
+	--- The list of players that need to be placed.
 	players = List:new(),
+	
+	--- The random object that is used to get random values.
 	random = nil,
-	random_placement_radius = 40,
-	required_bubble_size = 2,
-	retry_time = 0.5,
+	
+	--- The placement radius around the spawn.
+	random_placement_radius = settings.get_number("spawnusher_placement_radius", 40),
+	
+	--- The required air bubble size.
+	required_bubble_size = settings.get_number("spawnusher_bubble_size", 2),
+	
+	--- The retry time.
+	retry_time = settings.get_number("spawnusher_retry_time", 0.5),
+	
+	--- If the system is currently scheduled for execution.
 	scheduled = false,
+	
+	--- The registered spawnpoint providers.
 	spawnpoint_providers = List:new()
 }
 
 
---- Activates the spawn usher system.
---
--- @param random_placement_radius Optional. The player will be respawned in
---                                the given radius around the spawn point.
--- @param required_bubble_size Optional. The size/height of the bubble of
---                             air that is required for the player to spawn.
---                             Defaults to 2.
--- @param retry_time Optional. This is the time that passes between tries to
---                   place to the player.
-function spawnusher.activate(random_placement_radius, required_bubble_size, retry_time)
-	spawnusher.random_placement_radius = random_placement_radius or 40
-	spawnusher.required_bubble_size = required_bubble_size or 2
-	spawnusher.retry_time = retry_time or 0.5
-	
-	-- Initialize the PcgRandom with the current time. Given that placement
-	-- of the player is not critical or needs to be reproducable in any way,
-	-- it really does not matter here.
-	spawnusher.random = PcgRandom(os.time())
-	
-	minetest.register_on_newplayer(spawnusher.on_spawn_player)
-	minetest.register_on_respawnplayer(spawnusher.on_spawn_player)
+--- Activates the spawn usher system, if it has not been deactivated by
+-- a seeting in the configuration.
+function spawnusher.activate()
+	if settings.get_bool("spawnusher_activate", true) then
+		-- Initialize the PcgRandom with the current time. Given that placement
+		-- of the player is not critical or needs to be reproducable in any way,
+		-- it really does not matter here.
+		spawnusher.random = PcgRandom(os.time())
+		
+		minetest.register_on_newplayer(spawnusher.on_spawn_player)
+		minetest.register_on_respawnplayer(spawnusher.on_spawn_player)
+	end
 end
 
 --- Tests if the given position is an air bubble big enough.
