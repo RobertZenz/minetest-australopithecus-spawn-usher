@@ -189,7 +189,7 @@ function spawnusher.move_player(player)
 				player:setpos(pos)
 				
 				-- Randomize the direction in which the player looks.
-				player:set_look_yaw(spawnusher.random:next(0, math.rad(360)))
+				player:set_look_yaw(math.rad(spawnusher.random:next(0, 360)))
 				
 				-- Reset the physics override.
 				player:set_physics_override(spawnusher.player_physics[player:get_player_name()])
