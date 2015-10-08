@@ -54,9 +54,6 @@ spawnusher = {
 	--- The list of players that need to be placed.
 	players = List:new(),
 	
-	--- The random object that is used to get random values.
-	random = nil,
-	
 	--- The placement radius around the spawn.
 	random_placement_radius = settings.get_number("spawnusher_placement_radius", 40),
 	
@@ -85,11 +82,6 @@ spawnusher = {
 -- a seeting in the configuration.
 function spawnusher.activate()
 	if settings.get_bool("spawnusher_activate", true) then
-		-- Initialize the PcgRandom with the current time. Given that placement
-		-- of the player is not critical or needs to be reproducable in any way,
-		-- it really does not matter here.
-		spawnusher.random = PcgRandom(os.time())
-		
 		minetest.register_on_newplayer(spawnusher.on_spawn_player)
 		minetest.register_on_respawnplayer(spawnusher.on_spawn_player)
 	end
@@ -138,8 +130,8 @@ end
 --
 -- @param player The Player object to move.
 function spawnusher.move_random(player)
-	local move_x = spawnusher.random:next(-spawnusher.random_placement_radius, spawnusher.random_placement_radius)
-	local move_z = spawnusher.random:next(-spawnusher.random_placement_radius, spawnusher.random_placement_radius)
+	local move_x = random.next_int(-spawnusher.random_placement_radius, spawnusher.random_placement_radius)
+	local move_z = random.next_int(-spawnusher.random_placement_radius, spawnusher.random_placement_radius)
 	
 	local pos = player:getpos()
 	
@@ -189,7 +181,7 @@ function spawnusher.move_player(player)
 				player:setpos(pos)
 				
 				-- Randomize the direction in which the player looks.
-				player:set_look_yaw(math.rad(spawnusher.random:next(0, 360)))
+				player:set_look_yaw(math.rad(random.next_int(0, 360)))
 				
 				-- Reset the physics override.
 				player:set_physics_override(spawnusher.player_physics[player:get_player_name()])
