@@ -6,13 +6,13 @@ about the mapgen that is used.
 
 
 Usage
-=====
+-----
 
 The system activates itself, you just need to add the mod to the subgame.
 
 
 Configuration
-=============
+-------------
 
 The system can be configured by adding settings to the `minetest.conf`:
 
@@ -37,7 +37,7 @@ The system can be configured by adding settings to the `minetest.conf`:
 
 
 Providers
-=========
+---------
 
 You can register providers which allow to customize the spawn point of
 the players. The provider is a callback that is able to provide a different
@@ -80,7 +80,7 @@ And a usage example:
 
 
 After Spawn Callbacks
-=====================
+---------------------
 
 You can register a callback that will be invoked after the player has been
 respawned. This callback can't modify the spawn point anymore and is only
@@ -98,7 +98,7 @@ Usage example:
 
 
 Caveats
-=======
+-------
 
 There is a good chance that the player is placed inside a cave if
 the `required_bubble_size` is small, like 2. If you want to prevent that, just
