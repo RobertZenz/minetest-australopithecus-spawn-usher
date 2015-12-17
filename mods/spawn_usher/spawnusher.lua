@@ -54,6 +54,9 @@ spawnusher = {
 	--- The list of players that need to be placed.
 	players = List:new(),
 	
+	--- If the player should be facing a random direction after spawning.
+	random_direction = settings.get_bool("spawnusher_random_direction", true),
+	
 	--- The placement radius around the spawn.
 	random_placement_radius = settings.get_number("spawnusher_placement_radius", 40),
 	
@@ -180,8 +183,10 @@ function spawnusher.move_player(player)
 				-- Awesome! Place the user here.
 				player:setpos(pos)
 				
-				-- Randomize the direction in which the player looks.
-				player:set_look_yaw(math.rad(random.next_int(0, 360)))
+				if spawnusher.random_direction then
+					-- Randomize the direction in which the player looks.
+					player:set_look_yaw(math.rad(random.next_int(0, 360)))
+				end
 				
 				-- Reset the physics override.
 				player:set_physics_override(spawnusher.player_physics[player:get_player_name()])
