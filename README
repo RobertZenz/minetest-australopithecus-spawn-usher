@@ -5,6 +5,15 @@ A simple system that corrects the spawn of players without knowing anything
 about the mapgen that is used.
 
 
+Features
+--------
+
+ * Allows to spawn a player without any prior knowledge of the mapgen used.
+ * Allows to place the player inside a radius around the configured spawn point.
+ * Makes the player face a random direction after spawning.
+ * Completely configurable from the Configuration.
+
+
 Usage
 -----
 
