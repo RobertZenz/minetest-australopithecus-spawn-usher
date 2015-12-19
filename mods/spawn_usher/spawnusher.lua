@@ -37,7 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -- The only function that should be called from clients is activate.
 spawnusher = {
 	--- If the system should be activated automatically.
-	activate = settings.get_bool("spawnusher_activate", true),
+	activate_automatically = settings.get_bool("spawnusher_activate", true),
 	
 	--- If the system is active/has been activated.
 	active = false,
@@ -90,7 +90,7 @@ spawnusher = {
 --- Activates the spawn usher system, if it has not been deactivated by
 -- a seeting in the configuration.
 function spawnusher.activate()
-	if spawnusher.activate then
+	if spawnusher.activate_automatically then
 		spawnusher.activate_internal()
 	end
 end
