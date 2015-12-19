@@ -64,6 +64,10 @@
  a seeting in the configuration.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#activate_internal">activate_internal ()</a></td>
+	<td class="summary">Activates the system, without checking the configuration.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#is_air_bubble">is_air_bubble (start_pos)</a></td>
 	<td class="summary">Tests if the given position is an air bubble big enough.</td>
 	</tr>
@@ -111,6 +115,14 @@
 <h2><a href="#Fields">Fields</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#activate">activate</a></td>
+	<td class="summary">If the system should be activated automatically.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#active">active</a></td>
+	<td class="summary">If the system is active/has been activated.</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#after_spawn_callbacks">after_spawn_callbacks</a></td>
 	<td class="summary">The list of callbacks that are invoked after the player has been placed.</td>
 	</tr>
@@ -119,8 +131,8 @@
 	<td class="summary">The list of players that need to be placed.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#random">random</a></td>
-	<td class="summary">The random object that is used to get random values.</td>
+	<td class="name" nowrap><a href="#random_direction">random_direction</a></td>
+	<td class="summary">If the player should be facing a random direction after spawning.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#random_placement_radius">random_placement_radius</a></td>
@@ -161,6 +173,21 @@
     <dd>
     Activates the spawn usher system, if it has not been deactivated by
  a seeting in the configuration.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "activate_internal"></a>
+    <strong>activate_internal ()</strong>
+    </dt>
+    <dd>
+    Activates the system, without checking the configuration.  Multiple
+ invokations have no effect.
 
 
 
@@ -401,6 +428,34 @@
     <h2><a name="Fields"></a>Fields</h2>
     <dl class="function">
     <dt>
+    <a name = "activate"></a>
+    <strong>activate</strong>
+    </dt>
+    <dd>
+    If the system should be activated automatically.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "active"></a>
+    <strong>active</strong>
+    </dt>
+    <dd>
+    If the system is active/has been activated.
+
+
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "after_spawn_callbacks"></a>
     <strong>after_spawn_callbacks</strong>
     </dt>
@@ -429,11 +484,11 @@
 
 </dd>
     <dt>
-    <a name = "random"></a>
-    <strong>random</strong>
+    <a name = "random_direction"></a>
+    <strong>random_direction</strong>
     </dt>
     <dd>
-    The random object that is used to get random values.
+    If the player should be facing a random direction after spawning.
 
 
 

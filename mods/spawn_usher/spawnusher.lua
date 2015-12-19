@@ -36,6 +36,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --
 -- The only function that should be called from clients is activate.
 spawnusher = {
+	--- If the system should be activated automatically.
+	activate = settings.get_bool("spawnusher_activate", true),
+	
+	--- If the system is active/has been activated.
+	active = false,
+	
 	--- The list of callbacks that are invoked after the player has been placed.
 	after_spawn_callbacks = List:new(),
 	
@@ -84,9 +90,19 @@ spawnusher = {
 --- Activates the spawn usher system, if it has not been deactivated by
 -- a seeting in the configuration.
 function spawnusher.activate()
-	if settings.get_bool("spawnusher_activate", true) then
+	if spawnusher.activate then
+		spawnusher.activate_internal()
+	end
+end
+
+--- Activates the system, without checking the configuration. Multiple
+-- invokations have no effect.
+function spawnusher.activate_internal()
+	if not spawnusher.active then
 		minetest.register_on_newplayer(spawnusher.on_spawn_player)
 		minetest.register_on_respawnplayer(spawnusher.on_spawn_player)
+		
+		spawnusher.active = true
 	end
 end
 
