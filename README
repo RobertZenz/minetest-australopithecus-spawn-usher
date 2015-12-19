@@ -110,6 +110,13 @@ Usage example:
     end)
 
 
+Force activation
+----------------
+
+You can force the activation of the system, even if it has been disabled in
+the configuration, by invoking `spawnusher.activate_internal`.
+
+
 Caveats
 -------
 
