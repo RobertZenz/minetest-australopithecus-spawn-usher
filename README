@@ -36,7 +36,7 @@ The system can be configured by adding settings to the `minetest.conf`:
     
     # The radius around the spawnpoint in which the players will be randomly
     # placed, defaults to 40.
-    spawnusher_placement_radius = 40.
+    spawnusher_placement_radius = 40
     
     # If the player should be rotatet so that they face a random direction
     # after spawning, defaults to true.
